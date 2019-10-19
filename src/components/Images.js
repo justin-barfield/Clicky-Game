@@ -4,11 +4,11 @@ import React from "react";
 function Images(props) {
     return (
 
-        <div className="card">
+        <div className="card col-sm-3"  onClick={props.handleClick}>
 
             <div className="card-body pic-container">
 
-                <img alt={props.id} src={props.image} onClick={props.handleClick} />
+                <img className="pictures" alt={props.id} src={props.image} />
 
             </div>
 

@@ -3,9 +3,13 @@ import React from "react";
 function ImageContainer(props) {
     return (
 
-        <div className="image-container">
+        <div className="image-container container w-75">
 
-            {props.children}
+            <div className="row col-sm">
+
+                {props.children}
+
+            </div>
 
         </div>
 

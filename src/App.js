@@ -4,7 +4,7 @@ import Header from './components/Header';
 import NavBar from './components/NavBar';
 import Images from './components/Images';
 import ImageContainer from './components/ImageContainer';
-// import { oneOf } from '../../../../../../AppData/Local/Microsoft/TypeScript/3.6/node_modules/@types/prop-types';
+// import Modal from 'react-modal';
 import pix from "./pics";
 
 class App extends Component {
@@ -14,23 +14,55 @@ class App extends Component {
     guessedPics: [],
     gameState: "Don't select the same image!",
     score: 0,
-    highScore: 0
-    
+    highScore: 0,
+    // modalIsOpen: false,
+    // showModal: false,
+    // handleOpenModal: this.handleOpenModal.bind(this),
+    // handleCloseModal: this.handleCloseModal.bind(this)
   };
+  
+  // constructor () {
+  //   super();
+  //   this.state = {
+  //     showModal: false
+  //   };
+    
+  //   this.handleOpenModal = this.handleOpenModal.bind(this);
+  //   this.handleCloseModal = this.handleCloseModal.bind(this);
+  // }
+
+  // openModal() {
+  //   this.setState({modalIsOpen: true});
+  // }
+ 
+  // afterOpenModal() {
+  //   // references are now sync'd and can be accessed.
+  //   this.subtitle.style.color = '#f00';
+  // }
+
+  // closeModal() {
+  //   this.setState({modalIsOpen: false});
+  // }
 
   isUnique = (id) => {
     return !this.state.guessedPics.includes(id);
   }
 
   handleClick(id) {
+    let score;
+    let guessedPics;
+    let highScore;
     if (!this.isUnique(id)) {
-        window.alert("GAME OVER!!!!!!!");
-        // this.setState({})
+      score = 0;
+      guessedPics = [];
+      this.setState({score, guessedPics});
+      window.alert("GAME OVER!!!!!!!");
+        
     } else {
       const shuffledPics = this.getShuffledArray(this.state.pix); //add these to setState later...
-      const score = this.state.score + 1;
-      let guessedPics = this.state.guessedPics;
-      let highScore = this.state.highScore;
+      score = this.state.score + 1;
+      guessedPics = this.state.guessedPics;
+      highScore = this.state.highScore;
       
       //update highScore if needed
       if (score > highScore) {
@@ -42,6 +74,13 @@ class App extends Component {
       //finally, setState:
       this.setState({pix: shuffledPics, score, guessedPics, highScore})
     }
+    // if(this.state.score === 12) {
+    //   score = 0;
+    //   guessedPics = [];
+    //   highScore = 0;
+    //   this.setState({score, guessedPics, highScore});
+    //   window.alert("You win! Play again!");
+    // }
   }
 
   getShuffledArray(array) {
@@ -53,30 +92,6 @@ class App extends Component {
 
       return picsArray;
   }
-    // if(this.state.guessedPics.length > 0) {
-    //   this.state.guessedPics.forEach(imageIds => {
-    //     if(id === imageIds ) {
-    //       debugger;
-    //       this.setState({gameState: 'You lose', score: 0, guessedPics:[]});
-    //     } else {
-    //       debugger;
-    //       if(this.state.highScore <= this.state.score && this.state.gameState !== "You lose") {
-    //         console.log("first bs");
-    //         console.log(this.state.score);
-    //         console.log(this.state.gameState);
-    //         this.setState({highScore: this.state.highScore +1});
-    //       }
-    //       this.setState({guessedPics:[...this.state.guessedPics, id], score: this.state.score +1})
-    //     }
-    //   })  
-    // } else {
-    //   this.setState({guessedPics:[...this.state.guessedPics, id], score: this.state.score +1})
-    //   console.log("guessedPics", this.state.guessedPics)
-    //   if(this.state.highScore <= this.state.score) {
-    //     console.log("second bs")
-    //     this.setState({highScore: this.state.highScore +1})
-    //   }
-    // }
 
   render(){
     console.log(this.state.guessedPics)
@@ -107,6 +122,26 @@ class App extends Component {
           ))}
 
         </ImageContainer>
+
+        {/* <button onClick={this.openModal}>Open Modal</button>
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          onAfterOpen={this.afterOpenModal}
+          onRequestClose={this.closeModal}
+          contentLabel="Example Modal"
+        >
+ 
+          <h2 ref={subtitle => this.subtitle = subtitle}>Hello</h2>
+          <button onClick={this.closeModal}>close</button>
+          <div>I am a modal</div>
+          <form>
+            <input />
+            <button>tab navigation</button>
+            <button>stays</button>
+            <button>inside</button>
+            <button>the modal</button>
+          </form>
+        </Modal> */}
 
       </div>
 
